@@ -167,7 +167,7 @@ function oyunuBaslat() {
     document.getElementById('durum').innerText = "Soru okunuyor...";
     
     if (secilenSoru.tur === "metin") {
-        // Kitap ve Şiir Kategorisi
+        // Kitap ve Şiir Kategorisi (Soru biter bitmez geri sayım başlar)
         speak(secilenSoru.soru, geriSayimiBaslat);
         
     } else if (secilenSoru.tur === "muzik") {
@@ -175,18 +175,18 @@ function oyunuBaslat() {
         speak("Birazdan dinleyeceğiniz şarkının ismi nedir ve hangi sanatçıya aittir?", function() {
             document.getElementById('durum').innerText = "Şarkı çalıyor...";
             
-            // Şarkıyı Çalma İşlemi
+            // Şarkıyı yükle ve oynat
             const audio = new Audio(secilenSoru.dosya);
             audio.play().catch(e => {
                 document.getElementById('durum').innerText = "Şarkı dosyası bulunamadı!";
                 setTimeout(geriSayimiBaslat, 2000);
             });
 
-            // 10 Saniye çaldıktan sonra şarkıyı durdur ve geri sayıma geç
-            setTimeout(() => {
-                audio.pause();
+            // DEĞİŞİKLİK BURADA: Sabit 10 saniye beklemek yerine, 
+            // şarkı kendi uzunluğunda ne zaman biterse o zaman geri sayımı başlatır.
+            audio.onended = function() {
                 geriSayimiBaslat();
-            }, 10000);
+            };
         });
     }
 }
