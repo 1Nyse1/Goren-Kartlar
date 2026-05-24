@@ -51,83 +51,82 @@
 </div>
 
 <script>
-// 1. MP3 HAVUZU (ElevenLabs'ten indirdiğiniz dosya isimleri)
+// 1. MP3 HAVUZU (Belirttiğiniz yeni iç içe klasör yapısına göre güncellendi)
 const soruHavuzu = {
     kitap: [
-        { soruSes: "kitapsoru1.mp3", cevapSes: "kitapcevap1.mp3" },
-        { soruSes: "kitapsoru2.mp3", cevapSes: "kitapcevap2.mp3" },
-        { soruSes: "kitapsoru3.mp3", cevapSes: "kitapcevap3.mp3" },
-        { soruSes: "kitapsoru4.mp3", cevapSes: "kitapcevap4.mp3" },
-        { soruSes: "kitapsoru5.mp3", cevapSes: "kitapcevap5.mp3" },
-        { soruSes: "kitapsoru6.mp3", cevapSes: "kitapcevap6.mp3" },
-        { soruSes: "kitapsoru7.mp3", cevapSes: "kitapcevap7.mp3" },
-        { soruSes: "kitapsoru8.mp3", cevapSes: "kitapcevap8.mp3" },
-        { soruSes: "kitapsoru9.mp3", cevapSes: "kitapcevap9.mp3" },
-        { soruSes: "kitapsoru10.mp3", cevapSes: "kitapcevap10.mp3" },
-        { soruSes: "kitapsoru11.mp3", cevapSes: "kitapcevap11.mp3" },
-        { soruSes: "kitapsoru12.mp3", cevapSes: "kitapcevap12.mp3" },
-        { soruSes: "kitapsoru13.mp3", cevapSes: "kitapcevap13.mp3" }
-        // Kaç adet kitap sorunuz varsa buraya bu formatta ekleyebilirsiniz...
+        { soruSes: "SESLER/KİTAP/Soru/kitapsoru1.mp3", cevapSes: "SESLER/KİTAP/Cevap/kitapcevap1.mp3" },
+        { soruSes: "SESLER/KİTAP/Soru/kitapsoru2.mp3", cevapSes: "SESLER/KİTAP/Cevap/kitapcevap2.mp3" },
+        { soruSes: "SESLER/KİTAP/Soru/kitapsoru3.mp3", cevapSes: "SESLER/KİTAP/Cevap/kitapcevap3.mp3" },
+        { soruSes: "SESLER/KİTAP/Soru/kitapsoru4.mp3", cevapSes: "SESLER/KİTAP/Cevap/kitapcevap4.mp3" },
+        { soruSes: "SESLER/KİTAP/Soru/kitapsoru5.mp3", cevapSes: "SESLER/KİTAP/Cevap/kitapcevap5.mp3" },
+        { soruSes: "SESLER/KİTAP/Soru/kitapsoru6.mp3", cevapSes: "SESLER/KİTAP/Cevap/kitapcevap6.mp3" },
+        { soruSes: "SESLER/KİTAP/Soru/kitapsoru7.mp3", cevapSes: "SESLER/KİTAP/Cevap/kitapcevap7.mp3" },
+        { soruSes: "SESLER/KİTAP/Soru/kitapsoru8.mp3", cevapSes: "SESLER/KİTAP/Cevap/kitapcevap8.mp3" },
+        { soruSes: "SESLER/KİTAP/Soru/kitapsoru9.mp3", cevapSes: "SESLER/KİTAP/Cevap/kitapcevap9.mp3" },
+        { soruSes: "SESLER/KİTAP/Soru/kitapsoru10.mp3", cevapSes: "SESLER/KİTAP/Cevap/kitapcevap10.mp3" },
+        { soruSes: "SESLER/KİTAP/Soru/kitapsoru11.mp3", cevapSes: "SESLER/KİTAP/Cevap/kitapcevap11.mp3" },
+        { soruSes: "SESLER/KİTAP/Soru/kitapsoru12.mp3", cevapSes: "SESLER/KİTAP/Cevap/kitapcevap12.mp3" },
+        { soruSes: "SESLER/KİTAP/Soru/kitapsoru13.mp3", cevapSes: "SESLER/KİTAP/Cevap/kitapcevap13.mp3" }
     ],
     siir: [
-        { soruSes: "siirsoru1.mp3", cevapSes: "siircevap1.mp3" },
-        { soruSes: "siirsoru2.mp3", cevapSes: "siircevap2.mp3" },
-        { soruSes: "siirsoru3.mp3", cevapSes: "siircevap3.mp3" },
-        { soruSes: "siirsoru4.mp3", cevapSes: "siircevap4.mp3" },
-        { soruSes: "siirsoru5.mp3", cevapSes: "siircevap5.mp3" },
-        { soruSes: "siirsoru6.mp3", cevapSes: "siircevap6.mp3" },
-        { soruSes: "siirsoru7.mp3", cevapSes: "siircevap7.mp3" },
-        { soruSes: "siirsoru8.mp3", cevapSes: "siircevap8.mp3" },
-        { soruSes: "siirsoru9.mp3", cevapSes: "siircevap9.mp3" }
-        // Şiir soruları...
+        { soruSes: "SESLER/ŞİİR/Soru/siirsoru1.mp3", cevapSes: "SESLER/ŞİİR/Cevap/siircevap1.mp3" },
+        { soruSes: "SESLER/ŞİİR/Soru/siirsoru2.mp3", cevapSes: "SESLER/ŞİİR/Cevap/siircevap2.mp3" },
+        { soruSes: "SESLER/ŞİİR/Soru/siirsoru3.mp3", cevapSes: "SESLER/ŞİİR/Cevap/siircevap3.mp3" },
+        { soruSes: "SESLER/ŞİİR/Soru/siirsoru4.mp3", cevapSes: "SESLER/ŞİİR/Cevap/siircevap4.mp3" },
+        { soruSes: "SESLER/ŞİİR/Soru/siirsoru5.mp3", cevapSes: "SESLER/ŞİİR/Cevap/siircevap5.mp3" },
+        { soruSes: "SESLER/ŞİİR/Soru/siirsoru6.mp3", cevapSes: "SESLER/ŞİİR/Cevap/siircevap6.mp3" },
+        { soruSes: "SESLER/ŞİİR/Soru/siirsoru7.mp3", cevapSes: "SESLER/ŞİİR/Cevap/siircevap7.mp3" },
+        { soruSes: "SESLER/ŞİİR/Soru/siirsoru8.mp3", cevapSes: "SESLER/ŞİİR/Cevap/siircevap8.mp3" },
+        { soruSes: "SESLER/ŞİİR/Soru/siirsoru9.mp3", cevapSes: "SESLER/ŞİİR/Cevap/siircevap9.mp3" }
     ],
     sarki: [
-    { 
-        genelSoruSes: "sarki-sorusu.mp3", // ElevenLabs'ten indirdiğiniz "şarkı kime ait" sorusu
-        soruSes: "tarkan-simarik.mp3",       // Kestiğiniz 10-15 saniyelik şarkı kesiti
-        cevapSes: "sarkicevap1.mp3"        // ElevenLabs'ten indirdiğiniz "Doğru cevap Tarkan Şımarık" sesi
-    },
-    { 
-        genelSoruSes: "sarki-sorusu.mp3",
-        soruSes: "aleynatilki-senolsanbari.mp3",
-        cevapSes: "sarkicevap2.mp3"
-    },
-    { 
-        genelSoruSes: "sarki-sorusu.mp3",
-        soruSes: "sezenaksu-haydigelbenimleol.mp3",
-        cevapSes: "sarkicevap3.mp3"
-    },
-    { 
-        genelSoruSes: "sarki-sorusu.mp3",
-        soruSes: "hadise-askkacbedengiyer.mp3",
-        cevapSes: "sarkicevap4.mp3"
-    },
-    { 
-        genelSoruSes: "sarki-sorusu.mp3",
-        soruSes: "muratboz-janti.mp3",
-        cevapSes: "sarkicevap5.mp3"
-    },
-    { 
-        genelSoruSes: "sarki-sorusu.mp3",
-        soruSes: "sertaberener-rengarenk.mp3",
-        cevapSes: "sarkicevap6.mp3"
-    },
-    { 
-        genelSoruSes: "sarki-sorusu.mp3",
-        soruSes: "handeyener-altdudak.mp3",
-        cevapSes: "sarkicevap7.mp3"
-    },
-    { 
-        genelSoruSes: "sarki-sorusu.mp3",
-        soruSes: "serdarortac-poset.mp3",
-        cevapSes: "sarkicevap8.mp3"
-    },
-    { 
-        genelSoruSes: "sarki-sorusu.mp3",
-        soruSes: "manifest-manifest.mp3",
-        cevapSes: "sarkicevap9.mp3"
-    }
-]
+        { 
+            genelSoruSes: "SESLER/ŞARKI/Soru/sarki-sorusu.mp3", 
+            soruSes: "SESLER/ŞARKI/Şarkı/tarkan-simarik.mp3",       
+            cevapSes: "SESLER/ŞARKI/Cevap/sarkicevap1.mp3"        
+        },
+        { 
+            genelSoruSes: "SESLER/ŞARKI/Soru/sarki-sorusu.mp3",
+            soruSes: "SESLER/ŞARKI/Şarkı/aleynatilki-senolsanbari.mp3",
+            cevapSes: "SESLER/ŞARKI/Cevap/sarkicevap2.mp3"
+        },
+        { 
+            genelSoruSes: "SESLER/ŞARKI/Soru/sarki-sorusu.mp3",
+            soruSes: "SESLER/ŞARKI/Şarkı/sezenaksu-haydigelbenimleol.mp3",
+            cevapSes: "SESLER/ŞARKI/Cevap/sarkicevap3.mp3"
+        },
+        { 
+            genelSoruSes: "SESLER/ŞARKI/Soru/sarki-sorusu.mp3",
+            soruSes: "SESLER/ŞARKI/Şarkı/hadise-askkacbedengiyer.mp3",
+            cevapSes: "SESLER/ŞARKI/Cevap/sarkicevap4.mp3"
+        },
+        { 
+            genelSoruSes: "SESLER/ŞARKI/Soru/sarki-sorusu.mp3",
+            soruSes: "SESLER/ŞARKI/Şarkı/muratboz-janti.mp3",
+            cevapSes: "SESLER/ŞARKI/Cevap/sarkicevap5.mp3"
+        },
+        { 
+            genelSoruSes: "SESLER/ŞARKI/Soru/sarki-sorusu.mp3",
+            soruSes: "SESLER/ŞARKI/Şarkı/sertaberener-rengarenk.mp3",
+            cevapSes: "SESLER/ŞARKI/Cevap/sarkicevap6.mp3"
+        },
+        { 
+            genelSoruSes: "SESLER/ŞARKI/Soru/sarki-sorusu.mp3",
+            soruSes: "SESLER/ŞARKI/Şarkı/handeyener-altdudak.mp3",
+            cevapSes: "SESLER/ŞARKI/Cevap/sarkicevap7.mp3"
+        },
+        { 
+            genelSoruSes: "SESLER/ŞARKI/Soru/sarki-sorusu.mp3",
+            soruSes: "SESLER/ŞARKI/Şarkı/serdarortac-poset.mp3",
+            cevapSes: "SESLER/ŞARKI/Cevap/sarkicevap8.mp3"
+        },
+        { 
+            genelSoruSes: "SESLER/ŞARKI/Soru/sarki-sorusu.mp3",
+            soruSes: "SESLER/ŞARKI/Şarkı/manifest-manifest.mp3",
+            cevapSes: "SESLER/ŞARKI/Cevap/sarkicevap9.mp3"
+        }
+    ]
+};
 
 let secilenSoru = null;
 const urlParams = new URLSearchParams(window.location.search);
@@ -164,7 +163,9 @@ function geriSayimiBaslat() {
             
             // Cevap MP3'ünü oynat
             const cevapAudio = new Audio(secilenSoru.cevapSes);
-            cevapAudio.play();
+            cevapAudio.play().catch(e => {
+                document.getElementById('durum').innerText = "Cevap dosyası bulunamadı!";
+            });
         }
     }, 1000);
 }
@@ -173,44 +174,44 @@ function oyunuBaslat() {
     document.getElementById('baslatBtn').style.display = "none";
     document.getElementById('durum').innerText = "Soru hazırlanıyor...";
     
-    if (secilenSoru.tur === "metin") {
-        // Kitap ve Şiir Kategorisi (Normal akışında devam eder)
+    // Değişiklik: Kategori kontrolü doğrudan URL parametresine bağlandı
+    if (kategori === "kitap" || kategori === "siir") {
+        // Kitap ve Şiir Kategorisi Akışı
         const soruAudio = new Audio(secilenSoru.soruSes);
         soruAudio.play().catch(e => { document.getElementById('durum').innerText = "Soru sesi bulunamadı!"; });
         soruAudio.onended = function() {
             geriSayimiBaslat();
         };
         
-    } else if (secilenSoru.tur === "muzik") {
-        // --- YENİ ŞARKI KATEGORİSİ AKIŞI ---
+    } else if (kategori === "sarki") {
+        // Şarkı Kategorisi Akışı
         document.getElementById('durum').innerText = "Soru okunuyor...";
         
-        // 1. ADIM: ElevenLabs'e okuttuğunuz genel "Şarkı kime ait?" sorusunu çalıyoruz
-        // (Bunun için havuzunuza genelSoruSes adında bir dosya ekledik, aşağıda detayını anlattım)
-        const genelSoru = new Audio(secilenSoru.genelSoruSes || "sarki-sorusu.mp3");
+        // 1. ADIM: Soru klasöründeki genel şarkı sorusunu çal
+        const genelSoru = new Audio(secilenSoru.genelSoruSes);
         genelSoru.play().catch(e => {
             document.getElementById('durum').innerText = "Giriş sorusu sesi bulunamadı!";
         });
         
         genelSoru.onended = function() {
-            // 2. ADIM: Soru bittikten sonra ufak bir bekleme (Örn: 2 saniye / 2000 milisaniye)
+            // 2. ADIM: 2 saniyelik bekleme süresi
             document.getElementById('durum').innerText = "Hazır olun, şarkı geliyor...";
             
             setTimeout(function() {
-                // 3. ADIM: Bekleme süresi bitti, şarkı çalmaya başlıyor
+                // 3. ADIM: Şarkı klasöründeki müzik parçasını çal
                 document.getElementById('durum').innerText = "Şarkı çalıyor...";
-                const sarkiAudio = new Audio(secilenSoru.soruSes); // tarkan-simarik.mp3 gibi
+                const sarkiAudio = new Audio(secilenSoru.soruSes);
                 sarkiAudio.play().catch(e => {
                     document.getElementById('durum').innerText = "Şarkı dosyası bulunamadı!";
                     setTimeout(geriSayimiBaslat, 2000);
                 });
                 
-                // 4. ADIM: Şarkı bittiğinde 15 saniyelik geri sayımı başlat
+                // 4. ADIM: Şarkı bittiğinde geri sayımı başlat
                 sarkiAudio.onended = function() {
-                    geriSayimiBaslat(); // Bu fonksiyon süre bitince otomatik 5. ADIM olan cevabı çalacak
+                    geriSayimiBaslat();
                 };
                 
-            }, 2000); // 2000 milisaniye = 2 saniyelik ufak bekleme süresi (Dilerseniz değiştirebilirsiniz)
+            }, 2000); // 2 saniyelik es
         }
     }
 }
