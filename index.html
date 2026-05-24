@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monopoly Sesli Soru Sistemi</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            padding: 30px;
+            background: #1e1e1e;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        h1 { color: #4caf50; font-size: 24px; }
+        #durum { font-size: 18px; color: #bbb; margin-top: 20px; white-space: pre-line; }
+        #süre { font-size: 48px; color: #ff9800; font-weight: bold; margin: 20px 0; }
+        button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 id="baslik">Soru Yükleniyor...</h1>
+    <div id="durum">Lütfen bekleyin, soru hazırlanıyor.</div>
+    <div id="süre"></div>
+    
+    <button id="baslatBtn" style="display:none;" onclick="oyunuBaslat()">Soruyu Dinle</button>
+</div>
+
+<script>
+// 1. SORU HAVUZU
+const soruHavuzu = {
+    kitap: [
+        { tur: "metin", soru: "Momo adındaki küçük bir kızın, insanların zamanını çalan Duman Adamlar'a karşı verdiği mücadeleyi anlatan kitap hangisidir?", cevap: "Doğru cevap: Momo, yazarı Michael Ende" },
+        { tur: "metin", soru: "Kendi küçük gezegeninden ayrılıp dünyayı gezmeye gelen, bir tilkiyle dost olan ve 'Asıl olan gözle görülmez,' diyen sarı saçlı çocuk kimdir?", cevap: "Doğru cevap: Küçük Prens, yazarı Antoine de Saint-Exupéry" },
+        { tur: "metin", soru: "Macar yazar Ferenc Molnár tarafından yazılan, bir grup çocuğun oyun sahalarını yani arsayı korumak için verdiği duygusal mücadeleyi anlatan ünlü eser hangisidir?", cevap: "Doğru cevap: Pal Sokağı Çocukları" },
+        { tur: "metin", soru: "Bir çiftlikteki hayvanların, insanlara baş kaldırarak kendi yönetimlerini kurmalarını ama işlerin zamanla beklenmedik bir yöne evrilmesini anlatan alegorik kitap hangisidir?", cevap: "Doğru cevap: Hayvan Çiftliği, yazarı George Orwell" },
+        { tur: "metin", soru: "Yarı kurt yarı köpek olan Beyaz Diş'in, vahşi doğadan insan dünyasına uzanan sert ve etkileyici hikayesini anlatan eser hangisidir?", cevap: "Doğru cevap: Beyaz Diş, yazarı Jack London" },
+        { tur: "metin", soru: "Okulun en popüler çocuğu olmaya çalışan ama başına sürekli talihsiz işler gelen Greg Heffley’nin komik maceralarını anlatan seri hangisidir?", cevap: "Doğru cevap: Saftirik Greg’in Günlüğü" },
+        { tur: "metin", soru: "Brezilya’da çok fakir bir ailenin çocuğu olan Zeze’nin, dertlerini anlattığı bir şeker portakalı fidanıyla olan dostluğu hangi kitaptadır?", cevap: "Doğru cevap: Şeker Portakalı, yazarı José Mauro de Vasconcelos" },
+        { tur: "metin", soru: "Alnında şimşek şeklinde bir yara izi olan ve 11 yaşında büyücü olduğunu öğrenip Hogwarts’a giden çocuğun hikayesi hangisidir?", cevap: "Doğru cevap: Harry Potter ve Felsefe Taşı, yazarı J.K. Rowling" },
+        { tur: "metin", soru: "Kaptan Nemo’nun gelişmiş denizaltısı Nautilus ile okyanusların derinliklerinde yaptığı gizemli ve tehlikeli yolculuğu anlatan kitap hangisidir?", cevap: "Doğru cevap: Denizler Altında Yirmi Bin Fersah, yazarı Jules Verne" },
+        { tur: "metin", soru: "Bir mucidin kendi icat ettiği makineyle çok uzak bir geleceğe gidip, orada yaşayan iki farklı ırkla yani Eloi ve Morlock'larla tanışmasını anlatan eser hangisidir?", cevap: "Doğru cevap: Zaman Makinesi, yazarı H.G. Wells" },
+        { tur: "metin", soru: "Londra sokaklarında yetimhaneden kaçan, hırsızlık çetelerinin eline düşen ama dürüstlüğünü asla kaybetmeyen küçük bir çocuğun hikayesi nedir?", cevap: "Doğru cevap: Oliver Twist, yazarı Charles Dickens" },
+        { tur: "metin", soru: "Rüzgarın yönü değişince şemsiyesiyle uçarak gelen, çantasından koca bir dünya çıkaran ve çocuklara hayatı sihirli bir şekilde öğreten dadı kimdir?", cevap: "Doğru cevap: Mary Poppins, yazarı P.L. Travers" },
+        { tur: "metin", soru: "Güzel bir atın, farklı sahiplerin elinde geçen bazen mutlu bazen de çok zorlu yaşamını hayvan haklarına dikkat çekerek anlatan klasik hangisidir?", cevap: "Doğru cevap: Siyah İnci, yazarı Anna Sewell" }
+    ],
+    siir: [
+        { tur: "metin", soru: "Birazdan duyacağınız dörtlük hangi şiire aittir? Ey mavi göklerin beyaz ve kızıl süsü. Kız kardeşimin gelinliği, şehidimin son örtüsü. Işık ışık, dalga dalga bayrağım! Senin destanını okudum, senin destanını yazacağım.", cevap: "Doğru cevap: Bayrak. Şairi Arif Nihat Asya." },
+        { tur: "metin", soru: "Birazdan duyacağınız dörtlük hangi şiire aittir? Ağlasam sesimi duyar mısınız mısralarımda? Dokunabilir misiniz göz yaşlarıma, ellerinizle?", cevap: "Doğru cevap: Anlatamıyorum. Şairi Orhan Veli Kanık." },
+        { tur: "metin", soru: "Birazdan duyacağınız dörtlük hangi şiire aittir? Bastığın yerleri toprak diyerek geçme, tanı! Düşün altındaki binlerce kefensiz yatanı. Sen şehîd oğlusun, incitme, yazıktır atanı; Verme, dünyâları alsan da, bu cennet vatanı.", cevap: "Doğru cevap: İstiklâl Marşı. Şairi Mehmet Akif Ersoy." },
+        { tur: "metin", soru: "Birazdan duyacağınız dörtlük hangi şiire aittir? Kara gökler kül rengi bulutlarla kapanık; Evlerin bacasını kolluyor yıldırımlar. İn cin uykuda, yalnız iki yoldaş uyanık; Biri benim, biri de serseri kaldırımlar.", cevap: "Doğru cevap: Kaldırımlar. Şairi Necip Fazıl Kısakürek." },
+        { tur: "metin", soru: "Birazdan duyacağınız dörtlük hangi şiire aittir? Orda bir köy var, uzakta. O köy bizim köyümüzdür. Gezmesek de, tozmasak da o köy bizim köyümüzdür.", cevap: "Doğru cevap: Orda Bir Köy Var Uzakta. Şairi Ahmet Kutsi Tecer." },
+        { tur: "metin", soru: "Birazdan duyacağınız bent hangi şiire aittir? Memleket isterim. Gök mavi, dal yeşil, tarla sarı olsun. Kuşların çiçeklerin diyarı olsun.", cevap: "Doğru cevap: Memleket İsterim. Şairi Cahit Sıtkı Tarancı." },
+        { tur: "metin", soru: "Birazdan duyacağınız bent hangi şiire aittir? Gökyüzünün başka rengi de varmış! Geç farkettim taşın sert olduğunu. Su insanı boğar, ateş yakarmış! Her doğan günün bir dert olduğunu, insan bu yaşa gelince anlarmış.", cevap: "Doğru cevap: 35 Yaş Şiiri. Şairi Cahit Sıtkı Tarancı." },
+        { tur: "metin", soru: "Birazdan duyacağınız bent hangi şiire aittir? Ne vakit bir yaşamak düşünsem, bu kurtlar sofrasında belki zor. Ayıpsız, fakat ellerimizi kirletmeden. Ne vakit bir yaşamak düşünsem, sus deyip adınla başlıyorum. İçim sıra kımıldıyor gizli denizlerin. Hayır başka türlü olmayacak, ben sana mecburum bilemezsin.", cevap: "Doğru cevap: Ben Sana Mecburum. Şairi Attila İlhan." },
+        { tur: "metin", soru: "Birazdan duyacağınız bent hangi şiire aittir? Gelin tanış olalım. İşin kolayın tutalım. Sevelim sevilelim. Dünya kimseye kalmaz.", cevap: "Doğru cevap: Sevelim Sevilelim. Şairi Yunus Emre." }
+    ],
+    sarki: [
+        { tur: "muzik", dosya: "tarkan-simarik.mp3", cevap: "Doğru cevap: Tarkan, Şimarık" },
+        { tur: "muzik", dosya: "aleynatilki-senolsanbari.mp3", cevap: "Doğru cevap: Aleyna Tilki, Sen Olsan Bari" },
+        { tur: "muzik", dosya: "sezenaksu-haydigelbenimleol.mp3", cevap: "Doğru cevap: Sezen Aksu, Haydi Gel Benimle Ol" },
+        { tur: "muzik", dosya: "hadise-askkacbedengiyer.mp3", cevap: "Doğru cevap: Hadise, Aşk Kaç Beden Giyer" },
+        { tur: "muzik", dosya: "muratboz-janti.mp3", cevap: "Doğru cevap: Murat Boz, Janti" },
+        { tur: "muzik", dosya: "sertaberener-rengarenk.mp3", cevap: "Doğru cevap: Sertab Erener, Rengarenk" },
+        { tur: "muzik", dosya: "handeyener-altdudak.mp3", cevap: "Doğru cevap: Hande Yener, Alt dudak" },
+        { tur: "muzik", dosya: "serdarortac-poset.mp3", cevap: "Doğru cevap: Serdar Ortaç, Poşet" },
+        { tur: "muzik", dosya: "manifest-manifest.mp3", cevap: "Doğru cevap: Manifest, Manifest" }
+    ]
+};
+
+// Global Değişkenler
+let secilenSoru = null;
+
+const urlParams = new URLSearchParams(window.location.search);
+const kategori = urlParams.get('kategori') || 'kitap'; 
+
+window.onload = function() {
+    if(soruHavuzu[kategori]) {
+        const kategoridekiSorular = soruHavuzu[kategori];
+        const rastgeleIndeks = Math.floor(Math.random() * kategoridekiSorular.length);
+        secilenSoru = kategoridekiSorular[rastgeleIndeks];
+        
+        document.getElementById('baslik').innerText = "Kategori: " + kategori.toUpperCase();
+        document.getElementById('durum').innerText = "Soruyu başlatmak için butona dokunun.";
+        document.getElementById('baslatBtn').style.display = "block";
+    } else {
+        document.getElementById('baslik').innerText = "Hata";
+        document.getElementById('durum').innerText = "Geçersiz kategori seçildi.";
+    }
+};
+
+function speak(text, callback) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'tr-TR'; 
+    utterance.rate = 0.9; // Şiirler için hızı hafif düşürdük
+    utterance.onend = function() {
+        if (callback) callback();
+    };
+    window.speechSynthesis.cancel(); 
+    window.speechSynthesis.speak(utterance);
+}
+
+function geriSayimiBaslat() {
+    document.getElementById('durum').innerText = "Cevap için süreniz başladı!";
+    let kalanSure = 15;
+    document.getElementById('süre').innerText = kalanSure;
+    
+    const geriSayim = setInterval(function() {
+        kalanSure--;
+        document.getElementById('süre').innerText = kalanSure;
+        
+        if (kalanSure <= 0) {
+            clearInterval(geriSayim);
+            document.getElementById('süre').innerText = "Süre Doldu!";
+            document.getElementById('durum').innerText = "Cevap seslendiriliyor...";
+            speak(secilenSoru.cevap);
+        }
+    }, 1000);
+}
+
+function oyunuBaslat() {
+    document.getElementById('baslatBtn').style.display = "none";
+    document.getElementById('durum').innerText = "Soru okunuyor...";
+    
+    if (secilenSoru.tur === "metin") {
+        // Kitap ve Şiir Kategorisi
+        speak(secilenSoru.soru, geriSayimiBaslat);
+        
+    } else if (secilenSoru.tur === "muzik") {
+        // Şarkı Kategorisi
+        speak("Birazdan dinleyeceğiniz şarkının ismi nedir ve hangi sanatçıya aittir?", function() {
+            document.getElementById('durum').innerText = "Şarkı çalıyor...";
+            
+            // Şarkıyı Çalma İşlemi
+            const audio = new Audio(secilenSoru.dosya);
+            audio.play().catch(e => {
+                document.getElementById('durum').innerText = "Şarkı dosyası bulunamadı!";
+                setTimeout(geriSayimiBaslat, 2000);
+            });
+
+            // 10 Saniye çaldıktan sonra şarkıyı durdur ve geri sayıma geç
+            setTimeout(() => {
+                audio.pause();
+                geriSayimiBaslat();
+            }, 10000);
+        });
+    }
+}
+</script>
+
+</body>
+</html>
