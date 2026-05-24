@@ -26,7 +26,7 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
         h1 { color: #4caf50; font-size: 24px; }
-        #durum { font-size: 18px; color: #bbb; margin-top: 20px; white-space: pre-line; }
+        #durum { font-size: 18px; color: #bbb; margin-top: 20px; }
         #süre { font-size: 48px; color: #ff9800; font-weight: bold; margin: 20px 0; }
         button {
             background-color: #4caf50;
@@ -44,57 +44,92 @@
 
 <div class="container">
     <h1 id="baslik">Soru Yükleniyor...</h1>
-    <div id="durum">Lütfen bekleyin, soru hazırlanıyor.</div>
+    <div id="durum">Lütfen bekleyin...</div>
     <div id="süre"></div>
     
-    <button id="baslatBtn" style="display:none;" onclick="oyunuBaslat()">Soruyu Dinle</button>
+    <button id="baslatBtn" style="display:none;" onclick="oyunuBaslat()">Oyunu Başlat</button>
 </div>
 
 <script>
-// 1. SORU HAVUZU
+// 1. MP3 HAVUZU (ElevenLabs'ten indirdiğiniz dosya isimleri)
 const soruHavuzu = {
     kitap: [
-        { tur: "metin", soru: "Momo adındaki küçük bir kızın, insanların zamanını çalan Duman Adamlar'a karşı verdiği mücadeleyi anlatan kitap hangisidir?", cevap: "Doğru cevap: Momo, yazarı Michael Ende" },
-        { tur: "metin", soru: "Kendi küçük gezegeninden ayrılıp dünyayı gezmeye gelen, bir tilkiyle dost olan ve 'Asıl olan gözle görülmez,' diyen sarı saçlı çocuk kimdir?", cevap: "Doğru cevap: Küçük Prens, yazarı Antoine de Saint-Exupéry" },
-        { tur: "metin", soru: "Macar yazar Ferenc Molnár tarafından yazılan, bir grup çocuğun oyun sahalarını yani arsayı korumak için verdiği duygusal mücadeleyi anlatan ünlü eser hangisidir?", cevap: "Doğru cevap: Pal Sokağı Çocukları" },
-        { tur: "metin", soru: "Bir çiftlikteki hayvanların, insanlara baş kaldırarak kendi yönetimlerini kurmalarını ama işlerin zamanla beklenmedik bir yöne evrilmesini anlatan alegorik kitap hangisidir?", cevap: "Doğru cevap: Hayvan Çiftliği, yazarı George Orwell" },
-        { tur: "metin", soru: "Yarı kurt yarı köpek olan Beyaz Diş'in, vahşi doğadan insan dünyasına uzanan sert ve etkileyici hikayesini anlatan eser hangisidir?", cevap: "Doğru cevap: Beyaz Diş, yazarı Jack London" },
-        { tur: "metin", soru: "Okulun en popüler çocuğu olmaya çalışan ama başına sürekli talihsiz işler gelen Greg Heffley’nin komik maceralarını anlatan seri hangisidir?", cevap: "Doğru cevap: Saftirik Greg’in Günlüğü" },
-        { tur: "metin", soru: "Brezilya’da çok fakir bir ailenin çocuğu olan Zeze’nin, dertlerini anlattığı bir şeker portakalı fidanıyla olan dostluğu hangi kitaptadır?", cevap: "Doğru cevap: Şeker Portakalı, yazarı José Mauro de Vasconcelos" },
-        { tur: "metin", soru: "Alnında şimşek şeklinde bir yara izi olan ve 11 yaşında büyücü olduğunu öğrenip Hogwarts’a giden çocuğun hikayesi hangisidir?", cevap: "Doğru cevap: Harry Potter ve Felsefe Taşı, yazarı J.K. Rowling" },
-        { tur: "metin", soru: "Kaptan Nemo’nun gelişmiş denizaltısı Nautilus ile okyanusların derinliklerinde yaptığı gizemli ve tehlikeli yolculuğu anlatan kitap hangisidir?", cevap: "Doğru cevap: Denizler Altında Yirmi Bin Fersah, yazarı Jules Verne" },
-        { tur: "metin", soru: "Bir mucidin kendi icat ettiği makineyle çok uzak bir geleceğe gidip, orada yaşayan iki farklı ırkla yani Eloi ve Morlock'larla tanışmasını anlatan eser hangisidir?", cevap: "Doğru cevap: Zaman Makinesi, yazarı H.G. Wells" },
-        { tur: "metin", soru: "Londra sokaklarında yetimhaneden kaçan, hırsızlık çetelerinin eline düşen ama dürüstlüğünü asla kaybetmeyen küçük bir çocuğun hikayesi nedir?", cevap: "Doğru cevap: Oliver Twist, yazarı Charles Dickens" },
-        { tur: "metin", soru: "Rüzgarın yönü değişince şemsiyesiyle uçarak gelen, çantasından koca bir dünya çıkaran ve çocuklara hayatı sihirli bir şekilde öğreten dadı kimdir?", cevap: "Doğru cevap: Mary Poppins, yazarı P.L. Travers" },
-        { tur: "metin", soru: "Güzel bir atın, farklı sahiplerin elinde geçen bazen mutlu bazen de çok zorlu yaşamını hayvan haklarına dikkat çekerek anlatan klasik hangisidir?", cevap: "Doğru cevap: Siyah İnci, yazarı Anna Sewell" }
+        { soruSes: "kitapsoru1.mp3", cevapSes: "kitapcevap1.mp3" },
+        { soruSes: "kitapsoru2.mp3", cevapSes: "kitapcevap2.mp3" },
+        { soruSes: "kitapsoru3.mp3", cevapSes: "kitapcevap3.mp3" },
+        { soruSes: "kitapsoru4.mp3", cevapSes: "kitapcevap4.mp3" },
+        { soruSes: "kitapsoru5.mp3", cevapSes: "kitapcevap5.mp3" },
+        { soruSes: "kitapsoru6.mp3", cevapSes: "kitapcevap6.mp3" },
+        { soruSes: "kitapsoru7.mp3", cevapSes: "kitapcevap7.mp3" },
+        { soruSes: "kitapsoru8.mp3", cevapSes: "kitapcevap8.mp3" },
+        { soruSes: "kitapsoru9.mp3", cevapSes: "kitapcevap9.mp3" },
+        { soruSes: "kitapsoru10.mp3", cevapSes: "kitapcevap10.mp3" },
+        { soruSes: "kitapsoru11.mp3", cevapSes: "kitapcevap11.mp3" },
+        { soruSes: "kitapsoru12.mp3", cevapSes: "kitapcevap12.mp3" },
+        { soruSes: "kitapsoru13.mp3", cevapSes: "kitapcevap13.mp3" }
+        // Kaç adet kitap sorunuz varsa buraya bu formatta ekleyebilirsiniz...
     ],
     siir: [
-        { tur: "metin", soru: "Birazdan duyacağınız dörtlük hangi şiire aittir? Ey mavi göklerin beyaz ve kızıl süsü. Kız kardeşimin gelinliği, şehidimin son örtüsü. Işık ışık, dalga dalga bayrağım! Senin destanını okudum, senin destanını yazacağım.", cevap: "Doğru cevap: Bayrak. Şairi Arif Nihat Asya." },
-        { tur: "metin", soru: "Birazdan duyacağınız dörtlük hangi şiire aittir? Ağlasam sesimi duyar mısınız mısralarımda? Dokunabilir misiniz göz yaşlarıma, ellerinizle?", cevap: "Doğru cevap: Anlatamıyorum. Şairi Orhan Veli Kanık." },
-        { tur: "metin", soru: "Birazdan duyacağınız dörtlük hangi şiire aittir? Bastığın yerleri toprak diyerek geçme, tanı! Düşün altındaki binlerce kefensiz yatanı. Sen şehîd oğlusun, incitme, yazıktır atanı; Verme, dünyâları alsan da, bu cennet vatanı.", cevap: "Doğru cevap: İstiklâl Marşı. Şairi Mehmet Akif Ersoy." },
-        { tur: "metin", soru: "Birazdan duyacağınız dörtlük hangi şiire aittir? Kara gökler kül rengi bulutlarla kapanık; Evlerin bacasını kolluyor yıldırımlar. İn cin uykuda, yalnız iki yoldaş uyanık; Biri benim, biri de serseri kaldırımlar.", cevap: "Doğru cevap: Kaldırımlar. Şairi Necip Fazıl Kısakürek." },
-        { tur: "metin", soru: "Birazdan duyacağınız dörtlük hangi şiire aittir? Orda bir köy var, uzakta. O köy bizim köyümüzdür. Gezmesek de, tozmasak da o köy bizim köyümüzdür.", cevap: "Doğru cevap: Orda Bir Köy Var Uzakta. Şairi Ahmet Kutsi Tecer." },
-        { tur: "metin", soru: "Birazdan duyacağınız bent hangi şiire aittir? Memleket isterim. Gök mavi, dal yeşil, tarla sarı olsun. Kuşların çiçeklerin diyarı olsun.", cevap: "Doğru cevap: Memleket İsterim. Şairi Cahit Sıtkı Tarancı." },
-        { tur: "metin", soru: "Birazdan duyacağınız bent hangi şiire aittir? Gökyüzünün başka rengi de varmış! Geç farkettim taşın sert olduğunu. Su insanı boğar, ateş yakarmış! Her doğan günün bir dert olduğunu, insan bu yaşa gelince anlarmış.", cevap: "Doğru cevap: 35 Yaş Şiiri. Şairi Cahit Sıtkı Tarancı." },
-        { tur: "metin", soru: "Birazdan duyacağınız bent hangi şiire aittir? Ne vakit bir yaşamak düşünsem, bu kurtlar sofrasında belki zor. Ayıpsız, fakat ellerimizi kirletmeden. Ne vakit bir yaşamak düşünsem, sus deyip adınla başlıyorum. İçim sıra kımıldıyor gizli denizlerin. Hayır başka türlü olmayacak, ben sana mecburum bilemezsin.", cevap: "Doğru cevap: Ben Sana Mecburum. Şairi Attila İlhan." },
-        { tur: "metin", soru: "Birazdan duyacağınız bent hangi şiire aittir? Gelin tanış olalım. İşin kolayın tutalım. Sevelim sevilelim. Dünya kimseye kalmaz.", cevap: "Doğru cevap: Sevelim Sevilelim. Şairi Yunus Emre." }
+        { soruSes: "siirsoru1.mp3", cevapSes: "siircevap1.mp3" },
+        { soruSes: "siirsoru2.mp3", cevapSes: "siircevap2.mp3" },
+        { soruSes: "siirsoru3.mp3", cevapSes: "siircevap3.mp3" },
+        { soruSes: "siirsoru4.mp3", cevapSes: "siircevap4.mp3" },
+        { soruSes: "siirsoru5.mp3", cevapSes: "siircevap5.mp3" },
+        { soruSes: "siirsoru6.mp3", cevapSes: "siircevap6.mp3" },
+        { soruSes: "siirsoru7.mp3", cevapSes: "siircevap7.mp3" },
+        { soruSes: "siirsoru8.mp3", cevapSes: "siircevap8.mp3" },
+        { soruSes: "siirsoru9.mp3", cevapSes: "siircevap9.mp3" }
+        // Şiir soruları...
     ],
     sarki: [
-        { tur: "muzik", dosya: "tarkan-simarik.mp3", cevap: "Doğru cevap: Tarkan, Şımarık" },
-        { tur: "muzik", dosya: "aleynatilki-senolsanbari.mp3", cevap: "Doğru cevap: Aleyna Tilki, Sen Olsan Bari" },
-        { tur: "muzik", dosya: "sezenaksu-haydigelbenimleol.mp3", cevap: "Doğru cevap: Sezen Aksu, Haydi Gel Benimle Ol" },
-        { tur: "muzik", dosya: "hadise-askkacbedengiyer.mp3", cevap: "Doğru cevap: Hadise, Aşk Kaç Beden Giyer" },
-        { tur: "muzik", dosya: "muratboz-janti.mp3", cevap: "Doğru cevap: Murat Boz, Janti" },
-        { tur: "muzik", dosya: "sertaberener-rengarenk.mp3", cevap: "Doğru cevap: Sertab Erener, Rengarenk" },
-        { tur: "muzik", dosya: "handeyener-altdudak.mp3", cevap: "Doğru cevap: Hande Yener, Alt dudak" },
-        { tur: "muzik", dosya: "serdarortac-poset.mp3", cevap: "Doğru cevap: Serdar Ortaç, Poşet" },
-        { tur: "muzik", dosya: "manifest-manifest.mp3", cevap: "Doğru cevap: Manifest, Manifest" }
-    ]
-};
+    { 
+        genelSoruSes: "sarki-sorusu.mp3", // ElevenLabs'ten indirdiğiniz "şarkı kime ait" sorusu
+        soruSes: "tarkan-simarik.mp3",       // Kestiğiniz 10-15 saniyelik şarkı kesiti
+        cevapSes: "sarkicevap1.mp3"        // ElevenLabs'ten indirdiğiniz "Doğru cevap Tarkan Şımarık" sesi
+    },
+    { 
+        genelSoruSes: "sarki-sorusu.mp3",
+        soruSes: "aleynatilki-senolsanbari.mp3",
+        cevapSes: "sarkicevap2.mp3"
+    },
+    { 
+        genelSoruSes: "sarki-sorusu.mp3",
+        soruSes: "sezenaksu-haydigelbenimleol.mp3",
+        cevapSes: "sarkicevap3.mp3"
+    },
+    { 
+        genelSoruSes: "sarki-sorusu.mp3",
+        soruSes: "hadise-askkacbedengiyer.mp3",
+        cevapSes: "sarkicevap4.mp3"
+    },
+    { 
+        genelSoruSes: "sarki-sorusu.mp3",
+        soruSes: "muratboz-janti.mp3",
+        cevapSes: "sarkicevap5.mp3"
+    },
+    { 
+        genelSoruSes: "sarki-sorusu.mp3",
+        soruSes: "sertaberener-rengarenk.mp3",
+        cevapSes: "sarkicevap6.mp3"
+    },
+    { 
+        genelSoruSes: "sarki-sorusu.mp3",
+        soruSes: "handeyener-altdudak.mp3",
+        cevapSes: "sarkicevap7.mp3"
+    },
+    { 
+        genelSoruSes: "sarki-sorusu.mp3",
+        soruSes: "serdarortac-poset.mp3",
+        cevapSes: "sarkicevap8.mp3"
+    },
+    { 
+        genelSoruSes: "sarki-sorusu.mp3",
+        soruSes: "manifest-manifest.mp3",
+        cevapSes: "sarkicevap9.mp3"
+    }
+]
 
-// Global Değişkenler
 let secilenSoru = null;
-
 const urlParams = new URLSearchParams(window.location.search);
 const kategori = urlParams.get('kategori') || 'kitap'; 
 
@@ -105,47 +140,16 @@ window.onload = function() {
         secilenSoru = kategoridekiSorular[rastgeleIndeks];
         
         document.getElementById('baslik').innerText = "Kategori: " + kategori.toUpperCase();
-        document.getElementById('durum').innerText = "Soruyu başlatmak için butona dokunun.";
+        document.getElementById('durum').innerText = "Soruyu ve süreyi başlatmak için dokunun.";
         document.getElementById('baslatBtn').style.display = "block";
     } else {
         document.getElementById('baslik').innerText = "Hata";
-        document.getElementById('durum').innerText = "Geçersiz kategori seçildi.";
+        document.getElementById('durum').innerText = "Geçersiz kategori.";
     }
 };
 
-function speak(text, callback) {
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'tr-TR'; 
-    utterance.rate = 0.95; // Doğal bir konuşma hızı
-    utterance.pitch = 1.0; // Ses tonu kalınlığı (1 tam standarttır)
-
-    // Cihazdaki tüm sesleri listele ve en iyi Türkçe sesi bul
-    const voices = window.speechSynthesis.getVoices();
-    
-    // Google veya Apple'ın daha gelişmiş (premium/natural) seslerini önceliklendir
-    const enIyiTurkceSes = voices.find(voice => voice.lang.includes('tr-TR') && voice.name.includes('Google')) || 
-                          voices.find(voice => voice.lang.includes('tr-TR') && voice.name.includes('Premium')) ||
-                          voices.find(voice => voice.lang.includes('tr-TR'));
-
-    if (enIyiTurkceSes) {
-        utterance.voice = enIyiTurkceSes;
-    }
-    
-    utterance.onend = function() {
-        if (callback) callback();
-    };
-    
-    window.speechSynthesis.cancel(); 
-    window.speechSynthesis.speak(utterance);
-}
-
-// Bazı tarayıcılarda seslerin yüklenmesi zaman alır, bu yüzden bu tetikleyiciyi ekliyoruz
-window.speechSynthesis.onvoiceschanged = function() {
-    // Sesler arka planda güncellendiğinde hazır duruma gelir
-};
-    
 function geriSayimiBaslat() {
-    document.getElementById('durum').innerText = "Cevap için süreniz başladı!";
+    document.getElementById('durum').innerText = "Cevap için 15 saniyeniz var!";
     let kalanSure = 15;
     document.getElementById('süre').innerText = kalanSure;
     
@@ -156,38 +160,58 @@ function geriSayimiBaslat() {
         if (kalanSure <= 0) {
             clearInterval(geriSayim);
             document.getElementById('süre').innerText = "Süre Doldu!";
-            document.getElementById('durum').innerText = "Cevap seslendiriliyor...";
-            speak(secilenSoru.cevap);
+            document.getElementById('durum').innerText = "Cevap açıklanıyor...";
+            
+            // Cevap MP3'ünü oynat
+            const cevapAudio = new Audio(secilenSoru.cevapSes);
+            cevapAudio.play();
         }
     }, 1000);
 }
 
 function oyunuBaslat() {
     document.getElementById('baslatBtn').style.display = "none";
-    document.getElementById('durum').innerText = "Soru okunuyor...";
+    document.getElementById('durum').innerText = "Soru hazırlanıyor...";
     
     if (secilenSoru.tur === "metin") {
-        // Kitap ve Şiir Kategorisi (Soru biter bitmez geri sayım başlar)
-        speak(secilenSoru.soru, geriSayimiBaslat);
+        // Kitap ve Şiir Kategorisi (Normal akışında devam eder)
+        const soruAudio = new Audio(secilenSoru.soruSes);
+        soruAudio.play().catch(e => { document.getElementById('durum').innerText = "Soru sesi bulunamadı!"; });
+        soruAudio.onended = function() {
+            geriSayimiBaslat();
+        };
         
     } else if (secilenSoru.tur === "muzik") {
-        // Şarkı Kategorisi
-        speak("Birazdan dinleyeceğiniz şarkının ismi nedir ve hangi sanatçıya aittir?", function() {
-            document.getElementById('durum').innerText = "Şarkı çalıyor...";
-            
-            // Şarkıyı yükle ve oynat
-            const audio = new Audio(secilenSoru.dosya);
-            audio.play().catch(e => {
-                document.getElementById('durum').innerText = "Şarkı dosyası bulunamadı!";
-                setTimeout(geriSayimiBaslat, 2000);
-            });
-
-            // DEĞİŞİKLİK BURADA: Sabit 10 saniye beklemek yerine, 
-            // şarkı kendi uzunluğunda ne zaman biterse o zaman geri sayımı başlatır.
-            audio.onended = function() {
-                geriSayimiBaslat();
-            };
+        // --- YENİ ŞARKI KATEGORİSİ AKIŞI ---
+        document.getElementById('durum').innerText = "Soru okunuyor...";
+        
+        // 1. ADIM: ElevenLabs'e okuttuğunuz genel "Şarkı kime ait?" sorusunu çalıyoruz
+        // (Bunun için havuzunuza genelSoruSes adında bir dosya ekledik, aşağıda detayını anlattım)
+        const genelSoru = new Audio(secilenSoru.genelSoruSes || "sarki-sorusu.mp3");
+        genelSoru.play().catch(e => {
+            document.getElementById('durum').innerText = "Giriş sorusu sesi bulunamadı!";
         });
+        
+        genelSoru.onended = function() {
+            // 2. ADIM: Soru bittikten sonra ufak bir bekleme (Örn: 2 saniye / 2000 milisaniye)
+            document.getElementById('durum').innerText = "Hazır olun, şarkı geliyor...";
+            
+            setTimeout(function() {
+                // 3. ADIM: Bekleme süresi bitti, şarkı çalmaya başlıyor
+                document.getElementById('durum').innerText = "Şarkı çalıyor...";
+                const sarkiAudio = new Audio(secilenSoru.soruSes); // tarkan-simarik.mp3 gibi
+                sarkiAudio.play().catch(e => {
+                    document.getElementById('durum').innerText = "Şarkı dosyası bulunamadı!";
+                    setTimeout(geriSayimiBaslat, 2000);
+                });
+                
+                // 4. ADIM: Şarkı bittiğinde 15 saniyelik geri sayımı başlat
+                sarkiAudio.onended = function() {
+                    geriSayimiBaslat(); // Bu fonksiyon süre bitince otomatik 5. ADIM olan cevabı çalacak
+                };
+                
+            }, 2000); // 2000 milisaniye = 2 saniyelik ufak bekleme süresi (Dilerseniz değiştirebilirsiniz)
+        }
     }
 }
 </script>
