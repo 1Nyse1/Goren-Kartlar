@@ -50,8 +50,7 @@
     <button id="baslatBtn" style="display:none;" onclick="oyunuBaslat()">Oyunu Başlat</button>
 </div>
 
-<script>
-// 1. MP3 HAVUZU (Belirttiğiniz yeni iç içe klasör yapısına göre güncellendi)
+// 1. MP3 HAVUZU
 const soruHavuzu = {
     kitap: [
         { soruSes: "SESLER/KİTAP/Soru/kitapsoru1.mp3", cevapSes: "SESLER/KİTAP/Cevap/kitapcevap1.mp3" },
@@ -80,79 +79,41 @@ const soruHavuzu = {
         { soruSes: "SESLER/ŞİİR/Soru/siirsoru9.mp3", cevapSes: "SESLER/ŞİİR/Cevap/siircevap9.mp3" }
     ],
     sarki: [
-        { 
-            genelSoruSes: "SESLER/ŞARKI/Soru/sarki-sorusu.mp3", 
-            soruSes: "SESLER/ŞARKI/Şarkı/tarkan-simarik.mp3",       
-            cevapSes: "SESLER/ŞARKI/Cevap/sarkicevap1.mp3"        
-        },
-        { 
-            genelSoruSes: "SESLER/ŞARKI/Soru/sarki-sorusu.mp3",
-            soruSes: "SESLER/ŞARKI/Şarkı/aleynatilki-senolsanbari.mp3",
-            cevapSes: "SESLER/ŞARKI/Cevap/sarkicevap2.mp3"
-        },
-        { 
-            genelSoruSes: "SESLER/ŞARKI/Soru/sarki-sorusu.mp3",
-            soruSes: "SESLER/ŞARKI/Şarkı/sezenaksu-haydigelbenimleol.mp3",
-            cevapSes: "SESLER/ŞARKI/Cevap/sarkicevap3.mp3"
-        },
-        { 
-            genelSoruSes: "SESLER/ŞARKI/Soru/sarki-sorusu.mp3",
-            soruSes: "SESLER/ŞARKI/Şarkı/hadise-askkacbedengiyer.mp3",
-            cevapSes: "SESLER/ŞARKI/Cevap/sarkicevap4.mp3"
-        },
-        { 
-            genelSoruSes: "SESLER/ŞARKI/Soru/sarki-sorusu.mp3",
-            soruSes: "SESLER/ŞARKI/Şarkı/muratboz-janti.mp3",
-            cevapSes: "SESLER/ŞARKI/Cevap/sarkicevap5.mp3"
-        },
-        { 
-            genelSoruSes: "SESLER/ŞARKI/Soru/sarki-sorusu.mp3",
-            soruSes: "SESLER/ŞARKI/Şarkı/sertaberener-rengarenk.mp3",
-            cevapSes: "SESLER/ŞARKI/Cevap/sarkicevap6.mp3"
-        },
-        { 
-            genelSoruSes: "SESLER/ŞARKI/Soru/sarki-sorusu.mp3",
-            soruSes: "SESLER/ŞARKI/Şarkı/handeyener-altdudak.mp3",
-            cevapSes: "SESLER/ŞARKI/Cevap/sarkicevap7.mp3"
-        },
-        { 
-            genelSoruSes: "SESLER/ŞARKI/Soru/sarki-sorusu.mp3",
-            soruSes: "SESLER/ŞARKI/Şarkı/serdarortac-poset.mp3",
-            cevapSes: "SESLER/ŞARKI/Cevap/sarkicevap8.mp3"
-        },
-        { 
-            genelSoruSes: "SESLER/ŞARKI/Soru/sarki-sorusu.mp3",
-            soruSes: "SESLER/ŞARKI/Şarkı/manifest-manifest.mp3",
-            cevapSes: "SESLER/ŞARKI/Cevap/sarkicevap9.mp3"
-        }
+        { genelSoruSes: "SESLER/ŞARKI/Soru/sarki-sorusu.mp3", soruSes: "SESLER/ŞARKI/Şarkı/tarkan-simarik.mp3", cevapSes: "SESLER/ŞARKI/Cevap/sarkicevap1.mp3" },
+        { genelSoruSes: "SESLER/ŞARKI/Soru/sarki-sorusu.mp3", soruSes: "SESLER/ŞARKI/Şarkı/aleynatilki-senolsanbari.mp3", cevapSes: "SESLER/ŞARKI/Cevap/sarkicevap2.mp3" },
+        { genelSoruSes: "SESLER/ŞARKI/Soru/sarki-sorusu.mp3", soruSes: "SESLER/ŞARKI/Şarkı/sezenaksu-haydigelbenimleol.mp3", cevapSes: "SESLER/ŞARKI/Cevap/sarkicevap3.mp3" },
+        { genelSoruSes: "SESLER/ŞARKI/Soru/sarki-sorusu.mp3", soruSes: "SESLER/ŞARKI/Şarkı/hadise-askkacbedengiyer.mp3", cevapSes: "SESLER/ŞARKI/Cevap/sarkicevap4.mp3" },
+        { genelSoruSes: "SESLER/ŞARKI/Soru/sarki-sorusu.mp3", soruSes: "SESLER/ŞARKI/Şarkı/muratboz-janti.mp3", cevapSes: "SESLER/ŞARKI/Cevap/sarkicevap5.mp3" },
+        { genelSoruSes: "SESLER/ŞARKI/Soru/sarki-sorusu.mp3", soruSes: "SESLER/ŞARKI/Şarkı/sertaberener-rengarenk.mp3", cevapSes: "SESLER/ŞARKI/Cevap/sarkicevap6.mp3" },
+        { genelSoruSes: "SESLER/ŞARKI/Soru/sarki-sorusu.mp3", soruSes: "SESLER/ŞARKI/Şarkı/handeyener-altdudak.mp3", cevapSes: "SESLER/ŞARKI/Cevap/sarkicevap7.mp3" },
+        { genelSoruSes: "SESLER/ŞARKI/Soru/sarki-sorusu.mp3", soruSes: "SESLER/ŞARKI/Şarkı/serdarortac-poset.mp3", cevapSes: "SESLER/ŞARKI/Cevap/sarkicevap8.mp3" },
+        { genelSoruSes: "SESLER/ŞARKI/Soru/sarki-sorusu.mp3", soruSes: "SESLER/ŞARKI/Şarkı/manifest-manifest.mp3", cevapSes: "SESLER/ŞARKI/Cevap/sarkicevap9.mp3" }
     ]
 };
 
 let secilenSoru = null;
 const urlParams = new URLSearchParams(window.location.search);
-const kategori = urlParams.get('kategori') || 'kitap'; 
+let kategori = urlParams.get('kategori') || 'kitap'; 
+
+// Ses nesnelerini global tanımlıyoruz
+let audioSoru = null;
+let audioCevap = null;
+let audioGenelSoru = null;
 
 window.onload = function() {
-    // urlParams'tan gelen kategoriyi al ve küçük harfe çevir (Büyük-küçük harf hatalarını önler)
-    let urlKategori = urlParams.get('kategori');
-    if (urlKategori) {
-        // Türkçe karakter ve büyük harf uyumluluğu için küçük harfe çeviriyoruz
-        urlKategori = urlKategori.toLowerCase().replace('ı', 'i').replace('ş', 's');
-    } else {
-        urlKategori = 'kitap'; // Eğer linkte hiçbir şey yazmıyorsa varsayılan olarak kitap açılır
-    }
-
-    if(soruHavuzu[urlKategori]) {
-        const kategoridekiSorular = soruHavuzu[urlKategori];
+    kategori = kategori.toLowerCase().replace('ı', 'i').replace('ş', 's');
+    
+    if(soruHavuzu[kategori]) {
+        const kategoridekiSorular = soruHavuzu[kategori];
         const rastgeleIndeks = Math.floor(Math.random() * kategoridekiSorular.length);
         secilenSoru = kategoridekiSorular[rastgeleIndeks];
         
-        document.getElementById('baslik').innerText = "Kategori: " + urlKategori.toUpperCase();
+        document.getElementById('baslik').innerText = "Kategori: " + kategori.toUpperCase();
         document.getElementById('durum').innerText = "Soruyu ve süreyi başlatmak için dokunun.";
         document.getElementById('baslatBtn').style.display = "block";
     } else {
         document.getElementById('baslik').innerText = "Hata";
-        document.getElementById('durum').innerText = "Geçersiz kategori. Lütfen QR kodu kontrol edin.";
+        document.getElementById('durum').innerText = "Geçersiz kategori.";
     }
 };
 
@@ -170,10 +131,9 @@ function geriSayimiBaslat() {
             document.getElementById('süre').innerText = "Süre Doldu!";
             document.getElementById('durum').innerText = "Cevap açıklanıyor...";
             
-            // Cevap MP3'ünü oynat
-            const cevapAudio = new Audio(secilenSoru.cevapSes);
-            cevapAudio.play().catch(e => {
-                document.getElementById('durum').innerText = "Cevap dosyası bulunamadı!";
+            // MOBİL HİLESİ: En başta tetiklendiği için artık telefon engeline takılmadan çalar!
+            audioCevap.play().catch(e => {
+                document.getElementById('durum').innerText = "Cevap sesi oynatılamadı.";
             });
         }
     }, 1000);
@@ -183,48 +143,46 @@ function oyunuBaslat() {
     document.getElementById('baslatBtn').style.display = "none";
     document.getElementById('durum').innerText = "Soru hazırlanıyor...";
     
-    // Değişiklik: Kategori kontrolü doğrudan URL parametresine bağlandı
+    // --- MOBİL İÇİN EN KRİTİK ADIM (PRELOAD) ---
+    // Kullanıcı butona bastığı an tüm ses dosyalarını tarayıcı hafızasına kilitliyoruz.
+    audioSoru = new Audio(secilenSoru.soruSes);
+    audioCevap = new Audio(secilenSoru.cevapSes);
+    if(secilenSoru.genelSoruSes) {
+        audioGenelSoru = new Audio(secilenSoru.genelSoruSes);
+    }
+    
+    // Geçici olarak yükleyip seslerini kısık tutup tarayıcıya "bunu ben açtım" diyoruz
+    audioCevap.play().then(() => { audioCevap.pause(); audioCevap.currentTime = 0; }).catch(e => {});
+
+    // Oyun Akışları
     if (kategori === "kitap" || kategori === "siir") {
-        // Kitap ve Şiir Kategorisi Akışı
-        const soruAudio = new Audio(secilenSoru.soruSes);
-        soruAudio.play().catch(e => { document.getElementById('durum').innerText = "Soru sesi bulunamadı!"; });
-        soruAudio.onended = function() {
+        audioSoru.play().catch(e => { document.getElementById('durum').innerText = "Soru sesi bulunamadı!"; });
+        audioSoru.onended = function() {
             geriSayimiBaslat();
         };
         
     } else if (kategori === "sarki") {
-        // Şarkı Kategorisi Akışı
         document.getElementById('durum').innerText = "Soru okunuyor...";
         
-        // 1. ADIM: Soru klasöründeki genel şarkı sorusunu çal
-        const genelSoru = new Audio(secilenSoru.genelSoruSes);
-        genelSoru.play().catch(e => {
-            document.getElementById('durum').innerText = "Giriş sorusu sesi bulunamadı!";
+        audioGenelSoru.play().catch(e => {
+            document.getElementById('durum').innerText = "Giriş sorusu bulunamadı!";
         });
         
-        genelSoru.onended = function() {
-            // 2. ADIM: 2 saniyelik bekleme süresi
+        audioGenelSoru.onended = function() {
             document.getElementById('durum').innerText = "Hazır olun, şarkı geliyor...";
             
             setTimeout(function() {
-                // 3. ADIM: Şarkı klasöründeki müzik parçasını çal
                 document.getElementById('durum').innerText = "Şarkı çalıyor...";
-                const sarkiAudio = new Audio(secilenSoru.soruSes);
-                sarkiAudio.play().catch(e => {
+                audioSoru.play().catch(e => {
                     document.getElementById('durum').innerText = "Şarkı dosyası bulunamadı!";
                     setTimeout(geriSayimiBaslat, 2000);
                 });
                 
-                // 4. ADIM: Şarkı bittiğinde geri sayımı başlat
-                sarkiAudio.onended = function() {
+                audioSoru.onended = function() {
                     geriSayimiBaslat();
                 };
                 
-            }, 2000); // 2 saniyelik es
+            }, 2000);
         }
     }
 }
-</script>
-
-</body>
-</html>
