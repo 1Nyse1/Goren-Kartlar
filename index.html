@@ -133,17 +133,26 @@ const urlParams = new URLSearchParams(window.location.search);
 const kategori = urlParams.get('kategori') || 'kitap'; 
 
 window.onload = function() {
-    if(soruHavuzu[kategori]) {
-        const kategoridekiSorular = soruHavuzu[kategori];
+    // urlParams'tan gelen kategoriyi al ve küçük harfe çevir (Büyük-küçük harf hatalarını önler)
+    let urlKategori = urlParams.get('kategori');
+    if (urlKategori) {
+        // Türkçe karakter ve büyük harf uyumluluğu için küçük harfe çeviriyoruz
+        urlKategori = urlKategori.toLowerCase().replace('ı', 'i').replace('ş', 's');
+    } else {
+        urlKategori = 'kitap'; // Eğer linkte hiçbir şey yazmıyorsa varsayılan olarak kitap açılır
+    }
+
+    if(soruHavuzu[urlKategori]) {
+        const kategoridekiSorular = soruHavuzu[urlKategori];
         const rastgeleIndeks = Math.floor(Math.random() * kategoridekiSorular.length);
         secilenSoru = kategoridekiSorular[rastgeleIndeks];
         
-        document.getElementById('baslik').innerText = "Kategori: " + kategori.toUpperCase();
+        document.getElementById('baslik').innerText = "Kategori: " + urlKategori.toUpperCase();
         document.getElementById('durum').innerText = "Soruyu ve süreyi başlatmak için dokunun.";
         document.getElementById('baslatBtn').style.display = "block";
     } else {
         document.getElementById('baslik').innerText = "Hata";
-        document.getElementById('durum').innerText = "Geçersiz kategori.";
+        document.getElementById('durum').innerText = "Geçersiz kategori. Lütfen QR kodu kontrol edin.";
     }
 };
 
